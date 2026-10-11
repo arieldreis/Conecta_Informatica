@@ -1,0 +1,99 @@
+/* Estilos da página de cadastro (usar junto com styles.css) */
+
+.page-head {
+  margin: 50px 0 18px;
+}
+
+.page-head h2 { font-size: 1.5rem; line-height: 1.2; }
+.page-head .muted { font-size: 0.875rem; margin-top: 4px; }
+
+.form-card {
+  padding: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 15px;
+}
+
+.col-full { grid-column: 1 / -1; }
+
+textarea {
+  width: 100%;
+  min-height: 98px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  padding: 12px 14px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(22, 90, 69, 0.18);
+}
+
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
+  border-color: #b4402d;
+}
+
+/* Botões */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.btn:focus-visible { outline: 3px solid #8fc4ae; outline-offset: 2px; }
+
+.btn-primary {
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(22, 90, 69, 0.28);
+}
+.btn-primary:hover { background: #0f4735; transform: translateY(-1px); }
+
+.btn-secondary {
+  background: var(--green-soft);
+  color: var(--text);
+  border-color: var(--line);
+}
+.btn-secondary:hover { background: #d6e5db; }
+
+/* Mobile */
+@media (max-width: 700px) {
+  .page-head { margin-top: 32px; }
+
+  .form-grid { grid-template-columns: 1fr; }
+
+  .form-actions { flex-direction: column-reverse; }
+  .btn { width: 100%; height: 46px; }
+}
