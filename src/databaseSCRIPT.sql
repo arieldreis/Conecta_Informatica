@@ -148,5 +148,11 @@ VALUES
      'HD externo com conexão USB e capacidade de 2 TB',
      'Armazenamento', 459.90, 10);
 
+UPDATE `produtos`
+SET descricao = "Hub USB com quatro portas para conectar dispositivos"
+WHERE idProduto = "32";
+
+DELETE FROM `produtos`
+WHERE idProduto = "32";
 
 SELECT * FROM `produtos`;

@@ -50,6 +50,7 @@ router.get('/:id', async (req, res) => {
         });
     }
 });
+
 router.post('/cadastrar', async (req, res) => {
     // Colunas que seram cadastradas.
     const { nome, descricao, categoria, preco, quantidade } = req.body;
@@ -81,7 +82,65 @@ router.post('/cadastrar', async (req, res) => {
         });
     }
 });
-router.put('/:id', (req, res) => {});
-router.delete('/:id', (req, res) => {});
+
+router.patch('/alterar/:id', async (req, res) => {
+    // Colunas que seram cadastradas.
+    const id = Number(req.params.id);
+    const camposPermitidos = ['nome', 'descricao', 'categoria', 'preco', 'quantidade']; // Alterar apenas esses campos 
+    const camposRecebidos = camposPermitidos.filter(campo =>
+        Object.hasOwn(req.body, campo)
+    );
+
+    if (camposRecebidos.length === 0) {
+        return res.status(400).json({
+            success: false,
+            message: 'Envie pelo menos um campo para alterar.'
+        });
+    }
+
+    try{
+        const atualizacao = camposRecebidos
+            .map(campo => `\`${campo}\` = ?`)
+            .join(', ');
+        const valores = camposRecebidos.map(campo => req.body[campo]);
+
+        const [ updateData ] = await db.query(`
+            UPDATE produtos SET ${atualizacao} WHERE idProduto = ?
+        `, [...valores, id]);
+
+        if(updateData.affectedRows === 0){
+            return res.status(404).send({
+                success: false,
+                mensagem: "Usuário não encontrado."
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Produto alterado com sucesso."
+        });
+
+    } catch ( error ) { 
+        console.error('Erro ao alterar o produto:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Desculpe, ocorreu um erro interno no servidor.'
+        });
+    }
+});
+
+router.delete('/deletar/:id', async (req, res) => {
+    const id = Number(req.params.id);
+    try{
+
+    } catch ( error ){
+        console.error('Erro ao deletar o produto:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Desculpe, ocorreu um erro interno no servidor.'
+        });
+    }
+    
+});
 
 export default router;
