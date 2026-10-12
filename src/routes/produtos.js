@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { connection as db } from '../config/connectiondb.js';
 import path from 'path';
+import { connection as db } from '../config/connectiondb.js';
 
 const router = Router();
 
@@ -25,7 +25,8 @@ router.get('/:id', async (req, res) => {
         // Busco todoa os dados da tabela `produtos`
         const [ rows ] = await db.query('SELECT * FROM produtos');
 
-        {/*
+        {
+            /*
             Utilizo a função find() para encontrar o id quando eu 
             digitar dentro da próprio endpois da api usando uma comparação
             */
@@ -56,23 +57,27 @@ router.post('/cadastrar', async (req, res) => {
     const { nome, descricao, categoria, preco, quantidade } = req.body;
     try{
         // Verificar se todos os produtos foram cadastrados.
-        if(!nome || !categoria || preco === undefined || preco === '' || quantidade === undefined || quantidade === ''){
+        if( !nome || !categoria || preco === undefined || preco === '' || quantidade === undefined || quantidade === '' ){
             return res.status(400).json({
                 success: false,
                 message: "Preencha os campos obrigatórios."
             });
         }
         // Cadastrar o produto
-        const [ rows ] = await db.query(`
+        const [ create ] = await db.query(`
             INSERT INTO produtos(nome, descricao, categoria, preco, quantidade) VALUES(?, ?, ?, ?, ?)`, 
             [nome, descricao, categoria, preco, quantidade]
         );
 
         // Caso o produto seja cadastrado com sucesso.
-        return res.status(201).json({
-            success: true,
-            message: "Produto cadastrado com sucesso."
-        });
+        // rows.affectedRows > 0 essa linha de código é utilizada caso o número de alteração de linha seja maior que zero.
+        // "affectedRows" esse comando é utilizado no banco de dados.
+        if( create.affectedRows > 0 ){
+            return res.status(201).json({
+                success: true,
+                message: "Produto cadastrado com sucesso."
+            });
+        }
 
     } catch ( error ){
         console.error('Erro ao cadastar produtos:', error);
@@ -91,7 +96,7 @@ router.patch('/alterar/:id', async (req, res) => {
         Object.hasOwn(req.body, campo)
     );
 
-    if (camposRecebidos.length === 0) {
+    if ( camposRecebidos.length === 0 ) {
         return res.status(400).json({
             success: false,
             message: 'Envie pelo menos um campo para alterar.'
@@ -108,17 +113,21 @@ router.patch('/alterar/:id', async (req, res) => {
             UPDATE produtos SET ${atualizacao} WHERE idProduto = ?
         `, [...valores, id]);
 
-        if(updateData.affectedRows === 0){
+        // Caso nenhuma seja alterada no banco de dados sinal que o id não existe.
+        if( updateData.affectedRows === 0 ){
             return res.status(404).send({
                 success: false,
                 mensagem: "Usuário não encontrado."
             });
         }
 
-        return res.status(200).json({
-            success: true,
-            message: "Produto alterado com sucesso."
-        });
+        // Caso o id exista o essa condição será excutada.
+        if( updateData.affectedRows > 0 ){
+            return res.status(200).json({
+                success: true,
+                message: "Produto alterado com sucesso."
+            });
+        }
 
     } catch ( error ) { 
         console.error('Erro ao alterar o produto:', error);
@@ -132,6 +141,23 @@ router.patch('/alterar/:id', async (req, res) => {
 router.delete('/deletar/:id', async (req, res) => {
     const id = Number(req.params.id);
     try{
+        const [ deleteQuery ] = await db.query(`
+            DELETE FROM produtos
+            WHERE idProduto = ?
+        `, [id]);
+
+        // Caso o id existe o produto será excluído com sucesso
+        if(deleteQuery.affectedRows > 0){
+            res.status(200).json({
+                success: true,
+                message: "Produto excluído com sucesso."
+            });
+        } else {
+            return res.status(404).send({
+                success: false,
+                mensagem: "Usuário não encontrado."
+            });
+        }
 
     } catch ( error ){
         console.error('Erro ao deletar o produto:', error);
@@ -141,6 +167,20 @@ router.delete('/deletar/:id', async (req, res) => {
         });
     }
     
+});
+
+// Rota para as paginas htmls
+router.get('/Home', (req, res) => {
+    res.sendFile(path.join(__dirname, '..',  'public', 'pages', 'index.html'));
+});
+router.get('/NotFound', (req, res) => {
+    res.sendFile(path.join(__dirname, '..',  'public', 'pages', '404.html'));
+});
+router.get('/ErrorServer', (req, res) => {
+    res.sendFile(path.join(__dirname, '..',  'public', 'pages', '500.html'));
+});
+router.get('/success', (req, res) => {
+    res.sendFile(path.join(__dirname, '..',  'public', 'pages', 'sucesso.html'));
 });
 
 export default router;
