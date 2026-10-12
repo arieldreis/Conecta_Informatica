@@ -1,40 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ação concluída com sucesso</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/styles.css">
-  <link rel="stylesheet" href="../styles/erro.css">
-  <link rel="stylesheet" href="../styles/sucesso.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Confirmação de operação realizada com sucesso na Conecta Informática.">
+    <title>Operação concluída | Conecta Informática</title>
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
-<body class="error-page">
-  <div class="container">
-    <main class="error-card card" role="status">
+<body>
+    <main class="state-page">
+        <a class="brand state-brand" href="index.html#inicio" aria-label="Conecta Informática - início">
+            <span class="brand-mark" aria-hidden="true">C</span>
+            <span class="brand-copy"><strong>conecta</strong><small>INFORMÁTICA</small></span>
+        </a>
 
-      <p class="error-brand">
-        <span class="eyebrow-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="M3.3 7 12 12l8.7-5"/><path d="M12 22V12"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="m20.3 20.3 1.7 1.7"/></svg>
-        </span>
-        Controle interno
-      </p>
+        <section class="state-card state-success" aria-labelledby="state-title" aria-live="polite">
+            <div class="state-illustration" aria-hidden="true"><span>✓</span></div>
+            <p class="state-code">TUDO CERTO</p>
+            <h1 id="state-title">Operação concluída!</h1>
+            <p class="state-message">Sua solicitação foi processada com sucesso. As informações do produto foram atualizadas.</p>
+            <a class="button button-primary state-button" href="index.html#produtos">Voltar ao catálogo <span aria-hidden="true">→</span></a>
+            <a class="state-secondary-link" href="index.html#novo-produto">Cadastrar outro produto</a>
+        </section>
 
-      <div class="success-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
-      </div>
-
-      <h1 id="titulo">Ação concluída com sucesso</h1>
-      <p class="message" id="mensagem">Tudo certo! A operação foi realizada e o catálogo já está atualizado.</p>
-
-      <div class="error-actions">
-        <a class="btn btn-primary" href="index.html">Voltar para produtos</a>
-        <a class="btn btn-secondary" href="cadastro.html">Cadastrar outro produto</a>
-      </div>
-
+        <footer class="state-footer">Conecta Informática <span aria-hidden="true">·</span> Cadastro e controle de produtos</footer>
     </main>
-  </div>
 </body>
 </html>

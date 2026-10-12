@@ -1,78 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cadastro de Produtos</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Protótipo visual do sistema de cadastro de produtos da Conecta Informática.">
+    <title>Produtos | Conecta Informática</title>
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
-  <div class="container">
+    <div class="app-shell">
+        <aside class="sidebar" aria-label="Navegação principal">
+            <a class="brand" href="#inicio" aria-label="Conecta Informática - início">
+                <span class="brand-mark" aria-hidden="true">C</span>
+                <span class="brand-copy"><strong>conecta</strong><small>INFORMÁTICA</small></span>
+            </a>
 
-    <header class="hero">
-      <div class="hero-text">
-        <p class="eyebrow">
-          <span class="eyebrow-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="M3.3 7 12 12l8.7-5"/><path d="M12 22V12"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="m20.3 20.3 1.7 1.7"/></svg>
-          </span>
-          Controle interno
-        </p>
-        <h1>Cadastro de Produtos</h1>
-        <p class="subtitle">Gerencie o catálogo, acompanhe o estoque e mantenha os dados do time sempre organizados.</p>
-      </div>
+            <p class="nav-caption">MENU PRINCIPAL</p>
+            <nav>
+                <a class="nav-link active" href="#produtos" aria-current="page">
+                    <span class="nav-icon" aria-hidden="true">▦</span> Produtos
+                </a>
+                <a class="nav-link muted-link" href="#categorias">
+                    <span class="nav-icon" aria-hidden="true">◇</span> Categorias
+                </a>
+            </nav>
 
-      <button class="btn-add" type="button" aria-label="Adicionar produto" title="Adicionar produto">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-    </header>
+            <div class="sidebar-note">
+                <span class="note-icon" aria-hidden="true">i</span>
+                <p><strong>Controle simples.</strong><br>Produtos e estoque em um só lugar.</p>
+            </div>
 
-    <main>
-      <section class="list-head">
-        <div>
-          <h2>Produtos cadastrados</h2>
-          <p class="muted">Consulte, filtre e mantenha seu catálogo atualizado.</p>
-        </div>
-        <p class="count muted">0 produtos cadastrados</p>
-      </section>
+            <div class="profile">
+                <span class="avatar" aria-hidden="true">CI</span>
+                <span><strong>Equipe Conecta</strong><small>Área administrativa</small></span>
+                <span class="profile-dots" aria-hidden="true">•••</span>
+            </div>
+        </aside>
 
-      <form class="filters card" onsubmit="return false">
-        <div class="field field-search">
-          <label for="busca">Buscar produto</label>
-          <div class="input-wrap">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-            <input id="busca" type="search" autocomplete="off">
-          </div>
-        </div>
+        <main class="main-content" id="inicio">
+            <header class="topbar">
+                <div class="breadcrumb"><span>Painel</span><span aria-hidden="true">/</span><strong>Produtos</strong></div>
+                <div class="topbar-right"><span class="online-dot" aria-hidden="true"></span><span>Sistema de produtos</span></div>
+            </header>
 
-        <div class="field">
-          <label for="categoria">Categoria</label>
-          <select id="categoria">
-            <option>Todas as categorias</option>
-          </select>
-        </div>
+            <section class="page-heading" id="produtos">
+                <div>
+                    <p class="eyebrow">CATÁLOGO</p>
+                    <h1>Produtos</h1>
+                    <p class="heading-description">Cadastre, consulte e mantenha os produtos da loja atualizados.</p>
+                </div>
+                <a class="button button-primary" href="#novo-produto"><span aria-hidden="true">＋</span> Novo produto</a>
+            </section>
 
-        <div class="field">
-          <label for="disponibilidade">Disponibilidade</label>
-          <select id="disponibilidade">
-            <option>Todo o estoque</option>
-            <option>Em estoque</option>
-            <option>Sem estoque</option>
-          </select>
-        </div>
-      </form>
+            <section class="stats-grid" aria-label="Resumo do catálogo">
+                <article class="stat-card">
+                    <div class="stat-top"><span class="stat-icon blue-icon" aria-hidden="true">▦</span><span class="stat-label">Produtos cadastrados</span></div>
+                    <strong class="stat-number">32</strong>
+                    <span class="stat-foot">em 4 categorias</span>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-top"><span class="stat-icon green-icon" aria-hidden="true">↗</span><span class="stat-label">Unidades em estoque</span></div>
+                    <strong class="stat-number">648</strong>
+                    <span class="stat-foot">quantidade total</span>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-top"><span class="stat-icon amber-icon" aria-hidden="true">!</span><span class="stat-label">Atenção ao estoque</span></div>
+                    <strong class="stat-number">3</strong>
+                    <span class="stat-foot">produtos com poucas unidades</span>
+                </article>
+            </section>
 
-      <section class="empty card">
-        <div class="empty-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-        </div>
-        <h3>Nenhum produto cadastrado</h3>
-        <p class="muted">Comece cadastrando o primeiro item do seu catálogo.</p>
-      </section>
-    </main>
+            <section class="workspace-grid" aria-label="Cadastro e consulta de produtos">
+                <section class="panel form-panel" id="novo-produto" aria-labelledby="form-title">
+                    <div class="panel-heading">
+                        <div>
+                            <span class="section-kicker">CATÁLOGO</span>
+                            <h2 id="form-title">Cadastrar produto</h2>
+                        </div>
+                        <span class="step-badge">NOVO</span>
+                    </div>
+                    <p class="panel-intro">Preencha os dados para adicionar um item ao catálogo.</p>
 
-  </div>
+                    <form>
+                        <label for="nome">Nome do produto <span class="required-mark">*</span></label>
+                        <input id="nome" name="nome" type="text" placeholder="Ex.: Mouse USB" required maxlength="100">
+
+                        <label for="descricao">Descrição <span class="optional">Opcional</span></label>
+                        <textarea id="descricao" name="descricao" rows="3" placeholder="Descreva os detalhes do produto" maxlength="255"></textarea>
+
+                        <div class="field-row">
+                            <div class="field-group">
+                                <label for="categoria">Categoria <span class="required-mark">*</span></label>
+                                <select id="categoria" name="categoria" required>
+                                    <option value="" selected disabled>Selecione</option>
+                                    <option>Periféricos</option>
+                                    <option>Monitores</option>
+                                    <option>Cabos</option>
+                                    <option>Armazenamento</option>
+                                </select>
+                            </div>
+                            <div class="field-group">
+                                <label for="preco">Preço <span class="required-mark">*</span></label>
+                                <div class="input-with-prefix"><span>R$</span><input id="preco" name="preco" type="number" placeholder="0,00" min="0.01" step="0.01" required></div>
+                            </div>
+                        </div>
+
+                        <label for="quantidade">Quantidade em estoque <span class="required-mark">*</span></label>
+                        <input id="quantidade" name="quantidade" type="number" placeholder="Ex.: 10" min="0" step="1" required>
+
+                        <p class="form-hint"><span aria-hidden="true">*</span> Campos obrigatórios</p>
+                        <button class="button button-primary button-full" type="button">Cadastrar produto <span aria-hidden="true">→</span></button>
+                    </form>
+                </section>
+
+                <section class="panel list-panel" aria-labelledby="list-title">
+                    <div class="panel-heading list-heading">
+                        <div>
+                            <span class="section-kicker">VISÃO GERAL</span>
+                            <h2 id="list-title">Produtos cadastrados</h2>
+                        </div>
+                        <span class="result-count">32 itens</span>
+                    </div>
+                    <div class="toolbar">
+                        <label class="search-box" for="busca">
+                            <span aria-hidden="true">⌕</span>
+                            <input id="busca" type="search" placeholder="Buscar por nome, categoria ou ID">
+                        </label>
+                        <label class="filter-select" for="filtro-categoria">
+                            <span class="visually-hidden">Filtrar por categoria</span>
+                            <select id="filtro-categoria">
+                                <option>Todas categorias</option>
+                                <option>Periféricos</option>
+                                <option>Monitores</option>
+                                <option>Cabos</option>
+                                <option>Armazenamento</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">PRODUTO</th>
+                                    <th scope="col">CATEGORIA</th>
+                                    <th scope="col">PREÇO</th>
+                                    <th scope="col">ESTOQUE</th>
+                                    <th scope="col"><span class="visually-hidden">Ações</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><div class="product-cell"><span class="product-thumb thumb-blue" aria-hidden="true">⌁</span><span><strong>Mouse USB</strong><small>ID #001 · Mouse óptico com conexão USB</small></span></div></td>
+                                    <td><span class="category-pill">Periféricos</span></td>
+                                    <td class="price">R$ 45,90</td>
+                                    <td><span class="stock good-stock"><i></i> 10 un.</span></td>
+                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar Mouse USB">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir Mouse USB">Excluir</a></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="product-cell"><span class="product-thumb thumb-violet" aria-hidden="true">▤</span><span><strong>Teclado mecânico</strong><small>ID #002 · Teclado com iluminação</small></span></div></td>
+                                    <td><span class="category-pill">Periféricos</span></td>
+                                    <td class="price">R$ 289,90</td>
+                                    <td><span class="stock low-stock"><i></i> 5 un.</span></td>
+                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar Teclado mecânico">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir Teclado mecânico">Excluir</a></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="product-cell"><span class="product-thumb thumb-orange" aria-hidden="true">▭</span><span><strong>Monitor 24 polegadas</strong><small>ID #003 · Monitor com painel IPS</small></span></div></td>
+                                    <td><span class="category-pill category-monitor">Monitores</span></td>
+                                    <td class="price">R$ 899,90</td>
+                                    <td><span class="stock good-stock"><i></i> 9 un.</span></td>
+                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar Monitor 24 polegadas">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir Monitor 24 polegadas">Excluir</a></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="product-cell"><span class="product-thumb thumb-green" aria-hidden="true">⌁</span><span><strong>Cabo HDMI 1 metro</strong><small>ID #004 · Cabo HDMI de 1 metro</small></span></div></td>
+                                    <td><span class="category-pill category-cable">Cabos</span></td>
+                                    <td class="price">R$ 24,90</td>
+                                    <td><span class="stock good-stock"><i></i> 80 un.</span></td>
+                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar Cabo HDMI 1 metro">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir Cabo HDMI 1 metro">Excluir</a></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="product-cell"><span class="product-thumb thumb-slate" aria-hidden="true">▰</span><span><strong>SSD NVMe 1 TB</strong><small>ID #005 · Armazenamento M.2 NVMe</small></span></div></td>
+                                    <td><span class="category-pill category-storage">Armazenamento</span></td>
+                                    <td class="price">R$ 499,90</td>
+                                    <td><span class="stock low-stock"><i></i> 7 un.</span></td>
+                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar SSD NVMe 1 TB">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir SSD NVMe 1 TB">Excluir</a></div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-footer">
+                        <span>Exibindo <strong>5</strong> de <strong>32</strong> produtos</span>
+                        <nav class="pagination" aria-label="Paginação">
+                            <a class="page-arrow disabled" href="#anterior" aria-label="Página anterior">‹</a>
+                            <a class="page-number current" href="#pagina-1" aria-current="page">1</a>
+                            <a class="page-number" href="#pagina-2">2</a>
+                            <a class="page-number" href="#pagina-3">3</a>
+                            <span>…</span>
+                            <a class="page-number" href="#pagina-7">7</a>
+                            <a class="page-arrow" href="#proxima" aria-label="Próxima página">›</a>
+                        </nav>
+                    </div>
+                </section>
+            </section>
+
+            <section class="modal-backdrop" id="editar-produto" aria-labelledby="edit-title">
+                <div class="modal-card edit-modal">
+                    <a class="modal-close" href="#produtos" aria-label="Fechar edição">×</a>
+                    <span class="section-kicker">PRODUTO #001</span>
+                    <h2 id="edit-title">Editar produto</h2>
+                    <p class="modal-description">Atualize os dados do produto. O identificador permanece o mesmo.</p>
+                    <form class="modal-form">
+                        <label for="edit-nome">Nome do produto <span class="required-mark">*</span></label>
+                        <input id="edit-nome" type="text" value="Mouse USB" required>
+                        <label for="edit-descricao">Descrição</label>
+                        <textarea id="edit-descricao" rows="2">Mouse óptico com conexão USB</textarea>
+                        <div class="field-row">
+                            <div class="field-group">
+                                <label for="edit-categoria">Categoria <span class="required-mark">*</span></label>
+                                <select id="edit-categoria" required><option selected>Periféricos</option><option>Monitores</option><option>Cabos</option><option>Armazenamento</option></select>
+                            </div>
+                            <div class="field-group">
+                                <label for="edit-preco">Preço <span class="required-mark">*</span></label>
+                                <div class="input-with-prefix"><span>R$</span><input id="edit-preco" type="number" value="45.90" min="0.01" step="0.01" required></div>
+                            </div>
+                        </div>
+                        <label for="edit-quantidade">Quantidade em estoque <span class="required-mark">*</span></label>
+                        <input id="edit-quantidade" type="number" value="10" min="0" step="1" required>
+                        <div class="modal-actions"><a class="button button-secondary" href="#produtos">Cancelar</a><button class="button button-primary" type="button">Salvar alterações</button></div>
+                    </form>
+                </div>
+            </section>
+
+            <section class="modal-backdrop" id="excluir-produto" aria-labelledby="delete-title">
+                <div class="modal-card delete-modal">
+                    <a class="modal-close" href="#produtos" aria-label="Fechar confirmação">×</a>
+                    <span class="delete-symbol" aria-hidden="true">!</span>
+                    <h2 id="delete-title">Excluir produto?</h2>
+                    <p class="modal-description">Você está prestes a excluir <strong>Mouse USB</strong>. Essa ação removerá o cadastro do catálogo.</p>
+                    <div class="modal-actions"><a class="button button-secondary" href="#produtos">Cancelar</a><button class="button button-danger" type="button">Confirmar exclusão</button></div>
+                </div>
+            </section>
+
+            <footer class="page-footer"><span>Conecta Informática</span><span>Cadastro e controle de produtos</span></footer>
+        </main>
+    </div>
 </body>
 </html>
