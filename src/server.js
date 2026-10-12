@@ -1,5 +1,6 @@
 import express from 'express';
 import produtosRouter from './routes/produtos.js';
+import pages from './routes/pages.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -14,9 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Arquivos estáticos
 app.use(express.static(path.join(__dirname, './public/pages')));
+app.use('/styles', express.static(path.join(__dirname, './public/styles')));
 
 // Rotas
 app.use('/produtos', produtosRouter);
+app.use('/pages', pages);
 
 
 app.listen(PORT, () => {

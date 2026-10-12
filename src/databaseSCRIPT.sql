@@ -150,9 +150,9 @@ VALUES
 
 UPDATE `produtos`
 SET descricao = "Hub USB com quatro portas para conectar dispositivos"
-WHERE idProduto = "32";
+WHERE idProduto = "35";
 
 DELETE FROM `produtos`
-WHERE idProduto = "32";
+WHERE idProduto = "34";
 
 SELECT * FROM `produtos`;

@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import path from 'path';
 import { connection as db } from '../config/connectiondb.js';
 
 const router = Router();
@@ -169,18 +168,5 @@ router.delete('/deletar/:id', async (req, res) => {
     
 });
 
-// Rota para as paginas htmls
-router.get('/Home', (req, res) => {
-    res.sendFile(path.join(__dirname, '..',  'public', 'pages', 'index.html'));
-});
-router.get('/NotFound', (req, res) => {
-    res.sendFile(path.join(__dirname, '..',  'public', 'pages', '404.html'));
-});
-router.get('/ErrorServer', (req, res) => {
-    res.sendFile(path.join(__dirname, '..',  'public', 'pages', '500.html'));
-});
-router.get('/success', (req, res) => {
-    res.sendFile(path.join(__dirname, '..',  'public', 'pages', 'sucesso.html'));
-});
 
 export default router;
