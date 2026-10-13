@@ -6,6 +6,7 @@
     <meta name="description" content="Protótipo visual do sistema de cadastro de produtos da Conecta Informática.">
     <title>Produtos | Conecta Informática</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <script src="/scripts/menu.js" defer></script>
     <script src="/scripts/script.js" defer></script>
 </head>
 <body>
@@ -15,9 +16,12 @@
                 <span class="brand-mark" aria-hidden="true">C</span>
                 <span class="brand-copy"><strong>conecta</strong><small>INFORMÁTICA</small></span>
             </a>
+            <button class="mobile-menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-navigation" data-menu-toggle>
+                <span class="hamburger-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+            </button>
 
             <p class="nav-caption">MENU PRINCIPAL</p>
-            <nav>
+            <nav class="sidebar-navigation" id="main-navigation" aria-label="Navegação do sistema">
                 <a class="nav-link" href="/pages/Painel">
                     <span class="nav-icon" aria-hidden="true">▦</span> Painel
                 </a>
@@ -55,7 +59,6 @@
                 </div>
                 <a class="button button-primary" href="#novo-produto"><span aria-hidden="true">＋</span> Novo produto</a>
             </section>
-
             <section class="stats-grid" aria-label="Resumo do catálogo">
                 <article class="stat-card">
                     <div class="stat-top"><span class="stat-icon blue-icon" aria-hidden="true">▦</span><span class="stat-label">Produtos cadastrados</span></div>
@@ -73,7 +76,6 @@
                     <span class="stat-foot">produtos com poucas unidades</span>
                 </article>
             </section>
-
             <section class="workspace-grid" aria-label="Cadastro e consulta de produtos">
                 <section class="panel form-panel" id="novo-produto" aria-labelledby="form-title">
                     <div class="panel-heading">
@@ -116,7 +118,6 @@
                         <button class="button button-primary button-full" type="submit">Cadastrar produto <span aria-hidden="true">→</span></button>
                     </form>
                 </section>
-
                 <section class="panel list-panel" aria-labelledby="list-title">
                     <div class="panel-heading list-heading">
                         <div>
@@ -144,7 +145,6 @@
                             </select>
                         </label>
                     </div>
-
                     <div class="table-wrap">
                         <table>
                             <thead>
@@ -157,60 +157,12 @@
                                 </tr>
                             </thead>
                             <tbody id="lista_items">
-                                <tr>
-                                    <td><div class="product-cell"><span class="product-thumb thumb-blue" aria-hidden="true">⌁</span><span><strong>Mouse USB</strong><small>ID #001 · Mouse óptico com conexão USB</small></span></div></td>
-                                    <td><span class="category-pill">Periféricos</span></td>
-                                    <td class="price">R$ 45,90</td>
-                                    <td><span class="stock good-stock"><i></i> 10 un.</span></td>
-                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar Mouse USB">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir Mouse USB">Excluir</a></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="product-cell"><span class="product-thumb thumb-violet" aria-hidden="true">▤</span><span><strong>Teclado mecânico</strong><small>ID #002 · Teclado com iluminação</small></span></div></td>
-                                    <td><span class="category-pill">Periféricos</span></td>
-                                    <td class="price">R$ 289,90</td>
-                                    <td><span class="stock low-stock"><i></i> 5 un.</span></td>
-                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar Teclado mecânico">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir Teclado mecânico">Excluir</a></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="product-cell"><span class="product-thumb thumb-orange" aria-hidden="true">▭</span><span><strong>Monitor 24 polegadas</strong><small>ID #003 · Monitor com painel IPS</small></span></div></td>
-                                    <td><span class="category-pill category-monitor">Monitores</span></td>
-                                    <td class="price">R$ 899,90</td>
-                                    <td><span class="stock good-stock"><i></i> 9 un.</span></td>
-                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar Monitor 24 polegadas">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir Monitor 24 polegadas">Excluir</a></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="product-cell"><span class="product-thumb thumb-green" aria-hidden="true">⌁</span><span><strong>Cabo HDMI 1 metro</strong><small>ID #004 · Cabo HDMI de 1 metro</small></span></div></td>
-                                    <td><span class="category-pill category-cable">Cabos</span></td>
-                                    <td class="price">R$ 24,90</td>
-                                    <td><span class="stock good-stock"><i></i> 80 un.</span></td>
-                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar Cabo HDMI 1 metro">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir Cabo HDMI 1 metro">Excluir</a></div></td>
-                                </tr>
-                                <tr>
-                                    <td><div class="product-cell"><span class="product-thumb thumb-slate" aria-hidden="true">▰</span><span><strong>SSD NVMe 1 TB</strong><small>ID #005 · Armazenamento M.2 NVMe</small></span></div></td>
-                                    <td><span class="category-pill category-storage">Armazenamento</span></td>
-                                    <td class="price">R$ 499,90</td>
-                                    <td><span class="stock low-stock"><i></i> 7 un.</span></td>
-                                    <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar SSD NVMe 1 TB">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir SSD NVMe 1 TB">Excluir</a></div></td>
-                                </tr>
+                                <!-- IRÁ APARECER DINAMICAMENTE POR CONTA QUE EU ESTOU UTILIZANDO DOM JUNTO A UMA REQUISIÇÃO HTTP.-->
                             </tbody>
                         </table>
                     </div>
-
-                    <div class="table-footer">
-                        <span>Exibindo <strong>5</strong> de <strong>32</strong> produtos</span>
-                        <nav class="pagination" aria-label="Paginação">
-                            <a class="page-arrow disabled" href="#anterior" aria-label="Página anterior">‹</a>
-                            <a class="page-number current" href="#pagina-1" aria-current="page">1</a>
-                            <a class="page-number" href="#pagina-2">2</a>
-                            <a class="page-number" href="#pagina-3">3</a>
-                            <span>…</span>
-                            <a class="page-number" href="#pagina-7">7</a>
-                            <a class="page-arrow" href="#proxima" aria-label="Próxima página">›</a>
-                        </nav>
-                    </div>
                 </section>
             </section>
-
             <section class="modal-backdrop" id="editar-produto" aria-labelledby="edit-title">
                 <div class="modal-card edit-modal">
                     <a class="modal-close" href="#produtos" aria-label="Fechar edição">×</a>
@@ -238,7 +190,6 @@
                     </form>
                 </div>
             </section>
-
             <section class="modal-backdrop" id="excluir-produto" aria-labelledby="delete-title">
                 <div class="modal-card delete-modal">
                     <a class="modal-close" href="#produtos" aria-label="Fechar confirmação">×</a>
@@ -248,7 +199,6 @@
                     <div class="modal-actions"><a class="button button-secondary" href="#produtos">Cancelar</a><button class="button button-danger" type="button">Confirmar exclusão</button></div>
                 </div>
             </section>
-
             <footer class="page-footer"><span>Conecta Informática</span><span>Cadastro e controle de produtos</span></footer>
         </main>
     </div>

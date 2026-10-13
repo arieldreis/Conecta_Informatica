@@ -6,6 +6,7 @@
     <meta name="description" content="Painel de acompanhamento do catálogo e do estoque da Conecta Informática.">
     <title>Painel | Conecta Informática</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <script src="/scripts/menu.js" defer></script>
 </head>
 <body>
     <div class="app-shell">
@@ -14,9 +15,12 @@
                 <span class="brand-mark" aria-hidden="true">C</span>
                 <span class="brand-copy"><strong>conecta</strong><small>INFORMÁTICA</small></span>
             </a>
+            <button class="mobile-menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-navigation" data-menu-toggle>
+                <span class="hamburger-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+            </button>
 
             <p class="nav-caption">MENU PRINCIPAL</p>
-            <nav>
+            <nav class="sidebar-navigation" id="main-navigation" aria-label="Navegação do sistema">
                 <a class="nav-link active" href="/pages/Painel" aria-current="page">
                     <span class="nav-icon" aria-hidden="true">▦</span> Painel
                 </a>

@@ -33,7 +33,7 @@ MainProducts().catch(error => {
 async function buscarProduto() {
     // Dados do Input e ID
     let inputBuscarID = document.getElementById('busca');
-    let buscar = inputBuscarID.value;
+    let buscar = inputBuscarID.value.toLowerCase();
     let tbody = document.getElementById('lista_items');
 
     // Requisição HTTP
@@ -48,9 +48,24 @@ async function buscarProduto() {
         Armazenamento: "▰"
     }
 
+    // Filtrar os Dados na hora da pesquisa
+    const filterProdutos = JsonApi.filter((produto) => {
+    // Garante que o ID vire string para não dar erro caso seja número
+    const matchId = String(produto.idProduto).toLowerCase().includes(buscar);
+    const matchName = produto.nome.toLowerCase().includes(buscar);
+    const matchCategoria = produto.categoria.toLowerCase().includes(buscar);
+
+    // Se o input estiver vazio, retorna true para mostrar todos os itens
+    if (!buscar || buscar.trim() === "") {
+        return true; 
+    }
+
+    return matchId || matchName || matchCategoria;
+});
+
     // Adiconando o DOM junto ao map()
     // Utilizar operador ternário para os emojis
-    tbody.innerHTML = JsonApi.map(item => `
+    tbody.innerHTML = filterProdutos.map(item => `
         <tr>
             <td><div class="product-cell"><span class="product-thumb thumb-${item.categoria}" aria-hidden="true">${emojis[item.categoria]}</span><span><strong>${item.nome}</strong><small>ID #${item.idProduto} · ${item.descricao}</small></span></div></td>
             <td><span class="category-${item.categoria}">${item.categoria}</span></td>
