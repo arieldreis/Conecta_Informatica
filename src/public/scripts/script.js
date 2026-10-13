@@ -40,12 +40,20 @@ async function buscarProduto() {
     const fetchAPi = await fetch("http://localhost:3000/produtos");
     const JsonApi = await fetchAPi.json();
 
+    // Emojis
+    const emojis = {
+        Periféricos: "⌁",
+        Monitores: "▭",
+        Cabos: "⌁",
+        Armazenamento: "▰"
+    }
+
     // Adiconando o DOM junto ao map()
     // Utilizar operador ternário para os emojis
     tbody.innerHTML = JsonApi.map(item => `
         <tr>
-            <td><div class="product-cell"><span class="product-thumb thumb-blue" aria-hidden="true">⌁</span><span><strong>${item.nome}</strong><small>ID #${item.idProduto} · ${item.descricao}</small></span></div></td>
-            <td><span class="category-pill">${item.categoria}</span></td>
+            <td><div class="product-cell"><span class="product-thumb thumb-${item.categoria}" aria-hidden="true">${emojis[item.categoria]}</span><span><strong>${item.nome}</strong><small>ID #${item.idProduto} · ${item.descricao}</small></span></div></td>
+            <td><span class="category-${item.categoria}">${item.categoria}</span></td>
             <td class="price">R$ ${item.preco}</td>
             <td><span class="stock good-stock"><i></i> ${item.quantidade} un.</span></td>
             <td><div class="row-actions"><a href="#editar-produto" aria-label="Editar Mouse USB">Editar</a><a class="delete-action" href="#excluir-produto" aria-label="Excluir Mouse USB">Excluir</a></div></td>
@@ -56,4 +64,4 @@ async function buscarProduto() {
 buscarProduto();
 buscarProduto().catch(error => {
     console.error('Erro ao carregar os produtos:', error);
-})
+});

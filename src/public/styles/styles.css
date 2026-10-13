@@ -145,18 +145,18 @@ td { height: 61px; border-top: 1px solid #f0f2f6; color: #67748a; font-size: 10p
 .product-cell { display: flex; align-items: center; gap: 9px; }
 .product-cell > span:last-child { min-width: 0; }
 .product-thumb { display: grid; width: 32px; height: 32px; flex: 0 0 32px; place-items: center; border-radius: 8px; font-size: 17px; font-weight: 700; }
-.thumb-blue { color: #5271da; background: #edf1ff; }
-.thumb-violet { color: #8d6acb; background: #f3edff; }
-.thumb-orange { color: #da8a42; background: #fff1e3; }
-.thumb-green { color: #28a080; background: #e8f7f1; }
+.thumb-Periféricos { color: #5271da; background: #edf1ff; }
+.thumb-Armazenamento { color: #8d6acb; background: #f3edff; }
+.thumb-Monitores { color: #da8a42; background: #fff1e3; }
+.thumb-Cabos { color: #28a080; background: #e8f7f1; }
 .thumb-slate { color: #64738e; background: #eef1f6; }
 .product-cell strong, .product-cell small { display: block; }
 .product-cell strong { color: #2d3a54; font-size: 10px; font-weight: 700; }
 .product-cell small { max-width: 190px; margin-top: 3px; overflow: hidden; color: #9aa3b1; font-size: 9px; text-overflow: ellipsis; }
-.category-pill { display: inline-block; padding: 4px 7px; border-radius: 5px; color: #5c6fae; background: #f0f3ff; font-size: 9px; }
-.category-monitor { color: #ae7841; background: #fff5e9; }
-.category-cable { color: #28876d; background: #eaf7f2; }
-.category-storage { color: #64718b; background: #f0f2f7; }
+.category-Periféricos { display: inline-block; padding: 4px 7px; border-radius: 5px; color: #5c6fae; background: #f0f3ff; font-size: 9px; }
+.category-Monitores { color: #ae7841; background: #fff5e9; display: inline-block; padding: 4px 7px; border-radius: 5px; font-size: 9px;}
+.category-Cabos { color: #28876d; background: #eaf7f2; display: inline-block; padding: 4px 7px; border-radius: 5px; font-size: 9px;}
+.category-Armazenamento { color: #64718b; background: #f0f2f7; display: inline-block; padding: 4px 7px; border-radius: 5px; font-size: 9px;}
 .price { color: #37445c; font-weight: 700; }
 .stock { display: inline-flex; align-items: center; gap: 5px; font-size: 9px; }
 .stock i { width: 6px; height: 6px; border-radius: 50%; background: #35ae82; }
