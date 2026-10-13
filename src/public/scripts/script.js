@@ -115,7 +115,7 @@ async function updateProducts(id) {
             <span class="section-kicker">PRODUTO #${produtos.idProduto}</span>
             <h2 id="edit-title">Editar produto</h2>
 
-            <form class="modal-form">
+            <form class="modal-form" action="http://localhost:3000/produtos/alterar/${produtos.idProduto}" method="POST">
                 <label for="edit-nome">Nome do produto</label>
                 <input id="edit-nome" type="text" value="${produtos.nome}" name="nome" required>
 
@@ -139,6 +139,7 @@ async function updateProducts(id) {
                 <label for="edit-quantidade">Quantidade em estoque</label>
                 <input id="edit-quantidade" type="number"
                     value="${produtos.quantidade}" min="0" step="1" name="quantidade" required>
+                <div class="modal-actions"><a class="button button-secondary" href="#produtos">Cancelar</a><button class="button button-primary" type="submit">Salvar alterações</button></div>
             </form>
         </div>
     `;
@@ -181,5 +182,7 @@ async function salvarAlteracoesProduto(id, dados) {
 
     return resultado;
 }
-// 
+
+// Event listener para o botão "Salvar alterações"
+
 salvarAlteracoesProduto();
