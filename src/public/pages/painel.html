@@ -6,6 +6,7 @@
     <meta name="description" content="Painel de acompanhamento do catálogo e do estoque da Conecta Informática.">
     <title>Painel | Conecta Informática</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <script src="/scripts/painel.js" defer></script>
     <script src="/scripts/menu.js" defer></script>
 </head>
 <body>
@@ -62,17 +63,17 @@
             <section class="stats-grid" aria-label="Resumo do catálogo">
                 <article class="stat-card">
                     <div class="stat-top"><span class="stat-icon blue-icon" aria-hidden="true">▦</span><span class="stat-label">Produtos cadastrados</span></div>
-                    <strong class="stat-number">32</strong>
-                    <span class="stat-foot">em 4 categorias</span>
+                    <strong class="stat-number" id="IDCadastrados">--</strong>
+                    <span class="stat-foot">em <span id="IDQuantCategoria">--</span> categorias</span>
                 </article>
                 <article class="stat-card">
                     <div class="stat-top"><span class="stat-icon green-icon" aria-hidden="true">↗</span><span class="stat-label">Unidades em estoque</span></div>
-                    <strong class="stat-number">648</strong>
+                    <strong class="stat-number" id="IDUnidadeEstoque">--</strong>
                     <span class="stat-foot">somando todos os produtos</span>
                 </article>
                 <article class="stat-card">
                     <div class="stat-top"><span class="stat-icon amber-icon" aria-hidden="true">!</span><span class="stat-label">Atenção ao estoque</span></div>
-                    <strong class="stat-number">3</strong>
+                    <strong class="stat-number" id="IDLowProducts">--</strong>
                     <span class="stat-foot">produtos com poucas unidades</span>
                 </article>
             </section>
@@ -88,22 +89,22 @@
                     <div class="category-summary">
                         <div class="category-summary-row">
                             <span class="category-dot dot-blue" aria-hidden="true"></span>
-                            <span class="category-name">Periféricos</span><strong>16</strong>
+                            <span class="category-name">Periféricos</span><strong id="IDperifericos">--</strong>
                             <div class="category-track"><span class="category-fill fill-blue" style="width:50%"></span></div>
                         </div>
                         <div class="category-summary-row">
                             <span class="category-dot dot-orange" aria-hidden="true"></span>
-                            <span class="category-name">Monitores</span><strong>6</strong>
+                            <span class="category-name">Monitores</span><strong id="IDmonitores">--</strong>
                             <div class="category-track"><span class="category-fill fill-orange" style="width:38%"></span></div>
                         </div>
                         <div class="category-summary-row">
                             <span class="category-dot dot-green" aria-hidden="true"></span>
-                            <span class="category-name">Cabos</span><strong>6</strong>
+                            <span class="category-name">Cabos</span><strong id="IDcabos">--</strong>
                             <div class="category-track"><span class="category-fill fill-green" style="width:38%"></span></div>
                         </div>
                         <div class="category-summary-row">
                             <span class="category-dot dot-slate" aria-hidden="true"></span>
-                            <span class="category-name">Armazenamento</span><strong>4</strong>
+                            <span class="category-name">Armazenamento</span><strong id="IDarmazenamento">--</strong>
                             <div class="category-track"><span class="category-fill fill-slate" style="width:25%"></span></div>
                         </div>
                     </div>
@@ -115,10 +116,8 @@
                         <span class="result-count">3 produtos</span>
                     </div>
                     <p class="dashboard-panel-intro">Itens que merecem uma conferência.</p>
-                    <ul class="low-stock-list">
-                        <li><span class="stock-alert-icon" aria-hidden="true">!</span><span class="stock-alert-name"><strong>Webcam Full HD</strong><small>Periféricos · ID #009</small></span><span class="stock-amount empty-amount">0 un.</span></li>
-                        <li><span class="stock-alert-icon" aria-hidden="true">!</span><span class="stock-alert-name"><strong>Monitor ultrawide</strong><small>Monitores · ID #018</small></span><span class="stock-amount empty-amount">0 un.</span></li>
-                        <li><span class="stock-alert-icon" aria-hidden="true">!</span><span class="stock-alert-name"><strong>Teclado mecânico</strong><small>Periféricos · ID #006</small></span><span class="stock-amount">5 un.</span></li>
+                    <ul class="low-stock-list" id="low_stock_list">
+                        <!-- Interatividaade com JS-->
                     </ul>
                 </section>
 
@@ -130,10 +129,8 @@
                     <div class="table-wrap dashboard-table-wrap">
                         <table>
                             <thead><tr><th scope="col">PRODUTO</th><th scope="col">CATEGORIA</th><th scope="col">PREÇO</th><th scope="col">ESTOQUE</th></tr></thead>
-                            <tbody>
-                                <tr><td><div class="product-cell"><span class="product-thumb thumb-blue" aria-hidden="true">⌁</span><span><strong>Mouse USB</strong><small>ID #001</small></span></div></td><td><span class="category-pill">Periféricos</span></td><td class="price">R$ 45,90</td><td><span class="stock good-stock"><i></i>10 un.</span></td></tr>
-                                <tr><td><div class="product-cell"><span class="product-thumb thumb-violet" aria-hidden="true">▤</span><span><strong>Teclado sem fio</strong><small>ID #005</small></span></div></td><td><span class="category-pill">Periféricos</span></td><td class="price">R$ 129,90</td><td><span class="stock good-stock"><i></i>12 un.</span></td></tr>
-                                <tr><td><div class="product-cell"><span class="product-thumb thumb-orange" aria-hidden="true">▭</span><span><strong>Monitor 24 polegadas</strong><small>ID #015</small></span></div></td><td><span class="category-pill category-monitor">Monitores</span></td><td class="price">R$ 899,90</td><td><span class="stock good-stock"><i></i>9 un.</span></td></tr>
+                            <tbody id="IDprodutosRecentes">
+                                <!-- Interatividaade com JS-->
                             </tbody>
                         </table>
                     </div>

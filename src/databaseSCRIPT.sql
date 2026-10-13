@@ -155,4 +155,6 @@ WHERE idProduto = "35";
 DELETE FROM `produtos`
 WHERE idProduto = "34";
 
+SELECT count(*) AS quant FROM `produtos` WHERE quantidade < 5;
+
 SELECT * FROM `produtos`;

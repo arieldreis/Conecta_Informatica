@@ -1,13 +1,15 @@
 async function testeApi(){
     const fetchAPi = await fetch("http://localhost:3000/produtos");
     const JsonApi = await fetchAPi.json();
-    const quantidade = JsonApi.length;
-    const estoque = JsonApi.reduce((acumulador, obj) => acumulador + obj.quantidade, 0);
-    const estoque_baixo = JsonApi.filter(p => p.quantidade < 1).length;
-    console.log(JsonApi);
-    console.log("Produtos Cadastrados: ", quantidade);
-    console.log("EsTOQUE: ", estoque);
-    console.log("Abaixo: ", estoque_baixo)
+    
+    const produtosRecentes = [...JsonApi]
+    .sort((a, b) => Number(b.idProduto) - Number(a.idProduto))
+    .slice(0, 3);
+
+    const teste = [...JsonApi]
+    console.log(teste);
+
+    console.log(produtosRecentes);
 }
 
 // Calling the function 
