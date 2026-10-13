@@ -6,6 +6,7 @@
     <meta name="description" content="Protótipo visual do sistema de cadastro de produtos da Conecta Informática.">
     <title>Produtos | Conecta Informática</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <script src="/scripts/script.js" defer></script>
 </head>
 <body>
     <div class="app-shell">
@@ -17,11 +18,14 @@
 
             <p class="nav-caption">MENU PRINCIPAL</p>
             <nav>
-                <a class="nav-link active" href="#produtos" aria-current="page">
-                    <span class="nav-icon" aria-hidden="true">▦</span> Produtos
+                <a class="nav-link" href="/pages/Painel">
+                    <span class="nav-icon" aria-hidden="true">▦</span> Painel
                 </a>
-                <a class="nav-link muted-link" href="#categorias">
-                    <span class="nav-icon" aria-hidden="true">◇</span> Categorias
+                <a class="nav-link active" href="#produtos" aria-current="page">
+                    <span class="nav-icon" aria-hidden="true">◇</span> Produtos
+                </a>
+                <a class="nav-link" href="/pages/Painel#categorias">
+                    <span class="nav-icon" aria-hidden="true">▤</span> Categorias
                 </a>
             </nav>
 
@@ -55,17 +59,17 @@
             <section class="stats-grid" aria-label="Resumo do catálogo">
                 <article class="stat-card">
                     <div class="stat-top"><span class="stat-icon blue-icon" aria-hidden="true">▦</span><span class="stat-label">Produtos cadastrados</span></div>
-                    <strong class="stat-number">32</strong>
-                    <span class="stat-foot">em 4 categorias</span>
+                    <strong class="stat-number" id="idprodutosCadastrados">--</strong>
+                    <span class="stat-foot">em <span id="idquantCategoria">--</span> categorias</span>
                 </article>
                 <article class="stat-card">
                     <div class="stat-top"><span class="stat-icon green-icon" aria-hidden="true">↗</span><span class="stat-label">Unidades em estoque</span></div>
-                    <strong class="stat-number">648</strong>
+                    <strong class="stat-number" id="idUnidadeEstoque">--</strong>
                     <span class="stat-foot">quantidade total</span>
                 </article>
                 <article class="stat-card">
                     <div class="stat-top"><span class="stat-icon amber-icon" aria-hidden="true">!</span><span class="stat-label">Atenção ao estoque</span></div>
-                    <strong class="stat-number">3</strong>
+                    <strong class="stat-number" id="idlowProdutos">--</strong>
                     <span class="stat-foot">produtos com poucas unidades</span>
                 </article>
             </section>
@@ -80,8 +84,8 @@
                         <span class="step-badge">NOVO</span>
                     </div>
                     <p class="panel-intro">Preencha os dados para adicionar um item ao catálogo.</p>
-
-                    <form>
+                    <!-- FORMULÁRIO PARA CADASTRAR PRODUTO -->
+                    <form method="post" action="http://localhost:3000/produtos/cadastrar">
                         <label for="nome">Nome do produto <span class="required-mark">*</span></label>
                         <input id="nome" name="nome" type="text" placeholder="Ex.: Mouse USB" required maxlength="100">
 
@@ -109,7 +113,7 @@
                         <input id="quantidade" name="quantidade" type="number" placeholder="Ex.: 10" min="0" step="1" required>
 
                         <p class="form-hint"><span aria-hidden="true">*</span> Campos obrigatórios</p>
-                        <button class="button button-primary button-full" type="button">Cadastrar produto <span aria-hidden="true">→</span></button>
+                        <button class="button button-primary button-full" type="submit">Cadastrar produto <span aria-hidden="true">→</span></button>
                     </form>
                 </section>
 
@@ -119,12 +123,15 @@
                             <span class="section-kicker">VISÃO GERAL</span>
                             <h2 id="list-title">Produtos cadastrados</h2>
                         </div>
-                        <span class="result-count">32 itens</span>
+                        <span class="result-count">
+                            <strong id="idprodutosCadastrados2">32</strong>
+                            <strong>Items</strong>
+                        </span>
                     </div>
                     <div class="toolbar">
                         <label class="search-box" for="busca">
                             <span aria-hidden="true">⌕</span>
-                            <input id="busca" type="search" placeholder="Buscar por nome, categoria ou ID">
+                            <input id="busca" type="search" placeholder="Buscar por nome, categoria ou ID" onchange="buscarProduto()">
                         </label>
                         <label class="filter-select" for="filtro-categoria">
                             <span class="visually-hidden">Filtrar por categoria</span>
@@ -149,7 +156,7 @@
                                     <th scope="col"><span class="visually-hidden">Ações</span></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="lista_items">
                                 <tr>
                                     <td><div class="product-cell"><span class="product-thumb thumb-blue" aria-hidden="true">⌁</span><span><strong>Mouse USB</strong><small>ID #001 · Mouse óptico com conexão USB</small></span></div></td>
                                     <td><span class="category-pill">Periféricos</span></td>

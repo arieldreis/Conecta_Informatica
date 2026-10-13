@@ -7,6 +7,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Rota para as paginas htmls
+router.get('/Painel', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'painel.html'));
+});
 router.get('/Home', (req, res) => {
     res.sendFile(path.join(__dirname, '..',  'public', 'pages', 'index.html'));
 });
@@ -18,6 +21,9 @@ router.get('/ErrorServer', (req, res) => {
 });
 router.get('/success', (req, res) => {
     res.sendFile(path.join(__dirname, '..',  'public', 'pages', 'sucesso.html'));
+});
+router.get('/painel', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'painel.html'));
 });
 
 export default router;

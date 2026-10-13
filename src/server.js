@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // Arquivos estáticos
 app.use(express.static(path.join(__dirname, './public/pages')));
 app.use('/styles', express.static(path.join(__dirname, './public/styles')));
+app.use('/scripts', express.static(path.join(__dirname, './public/scripts')));
 
 // Rotas
 app.use('/produtos', produtosRouter);

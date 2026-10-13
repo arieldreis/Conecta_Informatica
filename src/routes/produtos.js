@@ -54,6 +54,8 @@ router.get('/:id', async (req, res) => {
 router.post('/cadastrar', async (req, res) => {
     // Colunas que seram cadastradas.
     const { nome, descricao, categoria, preco, quantidade } = req.body;
+    const PageSuccess = "http://localhost:3000/pages/success";
+    const ErrorServer = "http://localhost:3000/pages/ErrorServer";
     try{
         // Verificar se todos os produtos foram cadastrados.
         if( !nome || !categoria || preco === undefined || preco === '' || quantidade === undefined || quantidade === '' ){
@@ -72,18 +74,12 @@ router.post('/cadastrar', async (req, res) => {
         // rows.affectedRows > 0 essa linha de código é utilizada caso o número de alteração de linha seja maior que zero.
         // "affectedRows" esse comando é utilizado no banco de dados.
         if( create.affectedRows > 0 ){
-            return res.status(201).json({
-                success: true,
-                message: "Produto cadastrado com sucesso."
-            });
+            return res.redirect(PageSuccess);
         }
 
     } catch ( error ){
         console.error('Erro ao cadastar produtos:', error);
-        return res.status(500).json({
-            success: false,
-            message: 'Desculpe, ocorreu um erro interno no servidor.'
-        });
+        return res.status(500).redirect(ErrorServer);
     }
 });
 
