@@ -98,35 +98,41 @@ buscarProduto().catch(error => {
     console.error('Erro ao carregar os produtos:', error);
 });
 
+// Guarda os dados que vieram do banco para comparar com o formulário ao salvar.
+let produtoOriginal = null;
+
 async function updateProducts(id) {
     const response = await fetch(`http://localhost:3000/produtos/${id}`);
 
     if(!response.ok){
-        throw new Error("Não foi possível buscar o produto id.");
+        throw new Error(`Não foi possível buscar o produto ${id}.`);
     }
 
-    const produtos = await response.json();
+    const produto = await response.json();
+    // Mantemos uma cópia do estado inicial para detectar quais campos mudaram.
+    produtoOriginal = { ...produto };
     const categorias = ['Periféricos', 'Monitores', 'Cabos', 'Armazenamento'];
-    let editarProduct = document.getElementById('editar-produto');
+    const editarProduct = document.getElementById('editar-produto');
+    editarProduct.dataset.id = produto.idProduto;
 
     editarProduct.innerHTML = `
         <div class="modal-card edit-modal">
             <a class="modal-close" href="#produtos" aria-label="Fechar edição">×</a>
-            <span class="section-kicker">PRODUTO #${produtos.idProduto}</span>
+            <span class="section-kicker">PRODUTO #${produto.idProduto}</span>
             <h2 id="edit-title">Editar produto</h2>
 
-            <form class="modal-form" action="http://localhost:3000/produtos/alterar/${produtos.idProduto}" method="POST">
+            <form id="form-editar-produto" class="modal-form">
                 <label for="edit-nome">Nome do produto</label>
-                <input id="edit-nome" type="text" value="${produtos.nome}" name="nome" required>
+                <input id="edit-nome" type="text" value="${produto.nome}" name="nome" required>
 
                 <label for="edit-descricao">Descrição</label>
-                <textarea id="edit-descricao" name="descricao">${produtos.descricao ?? ''}</textarea>
+                <textarea id="edit-descricao" name="descricao">${produto.descricao ?? ''}</textarea>
 
                 <label for="edit-categoria">Categoria</label>
                 <select id="edit-categoria" required name="categoria">
                     ${categorias.map(categoria => `
                         <option value="${categoria}"
-                            ${produtos.categoria === categoria ? 'selected' : ''}>
+                            ${produto.categoria === categoria ? 'selected' : ''}>
                             ${categoria}
                         </option>
                     `).join('')}
@@ -134,12 +140,15 @@ async function updateProducts(id) {
 
                 <label for="edit-preco">Preço</label>
                 <input id="edit-preco" type="number"
-                    value="${produtos.preco}" min="0.01" step="0.01" name="preco" required>
+                    value="${produto.preco}" min="0.01" step="0.01" name="preco" required>
 
                 <label for="edit-quantidade">Quantidade em estoque</label>
                 <input id="edit-quantidade" type="number"
-                    value="${produtos.quantidade}" min="0" step="1" name="quantidade" required>
-                <div class="modal-actions"><a class="button button-secondary" href="#produtos">Cancelar</a><button class="button button-primary" type="submit">Salvar alterações</button></div>
+                    value="${produto.quantidade}" min="0" step="1" name="quantidade" required>
+                <div class="modal-actions">
+                    <a class="button button-secondary" href="#produtos">Cancelar</a>
+                    <button class="button button-primary" type="submit">Salvar alterações</button>
+                </div>
             </form>
         </div>
     `;
@@ -164,17 +173,14 @@ tbody.addEventListener('click', async event => {
 
 async function salvarAlteracoesProduto(id, dados) {
     const response = await fetch(
-        `http://localhost:3000/produtos/alterar/${id}`,
-        {
-            method: "PATCH", 
-            headers: {
-                "Content-Type": "application/json"
-            },
+        `http://localhost:3000/produtos/alterar/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dados)
         }
     );
 
-    const produtos = await response.json();
+    const resultado = await response.json();
 
     if (!response.ok) {
         throw new Error(resultado.message || 'Não foi possível atualizar o produto.');
@@ -182,7 +188,51 @@ async function salvarAlteracoesProduto(id, dados) {
 
     return resultado;
 }
+function obterAlteracoes() {
+    const atual = {
+        nome: document.getElementById('edit-nome').value.trim(),
+        descricao: document.getElementById('edit-descricao').value.trim(),
+        categoria: document.getElementById('edit-categoria').value,
+        preco: Number(document.getElementById('edit-preco').value),
+        quantidade: Number(document.getElementById('edit-quantidade').value)
+    }
 
-// Event listener para o botão "Salvar alterações"
+    const original = {
+        nome: produtoOriginal.nome,
+        descricao: produtoOriginal.descricao ?? '',
+        categoria: produtoOriginal.categoria,
+        preco: Number(produtoOriginal.preco),
+        quantidade: Number(produtoOriginal.quantidade)
+    }
 
-salvarAlteracoesProduto();
+    return Object.fromEntries(
+        Object.entries(atual).filter(([campo, valor]) => valor !== original[campo])
+    );
+}
+
+// Como o formulário é criado dinamicamente, escutamos o envio no modal que já existe.
+const editarProduct = document.getElementById('editar-produto');
+
+editarProduct.addEventListener('submit', async event => {
+    if (event.target.id !== 'form-editar-produto') return;
+
+    // Impede o navegador de recarregar a página e enviar um POST tradicional.
+    event.preventDefault();
+
+    const id = editarProduct.dataset.id;
+    const alteracoes = obterAlteracoes();
+
+    if (Object.keys(alteracoes).length === 0) {
+        console.log('Nenhum campo foi alterado.');
+        return;
+    }
+
+    try {
+        await salvarAlteracoesProduto(id, alteracoes);
+        window.location.href = 'http://localhost:3000/pages/success';
+        await buscarProduto();
+        await MainProducts();
+    } catch (error) {
+        console.error('Erro ao salvar as alterações:', error);
+    }
+});
