@@ -28,6 +28,7 @@ async function MainProducts() {
 MainProducts();
 MainProducts().catch(error => {
     console.error('Erro ao carregar os produtos:', error);
+    window.location.href = "http://localhost:3000/pages/ErrorServer"
 });
 
 async function buscarProduto() {
@@ -86,7 +87,7 @@ async function buscarProduto() {
             <td>
                 <div class="row-actions">
                     <a href="#editar-produto" data-id="${item.idProduto}" class="editar-produto">Editar</a>
-                    <a class="delete-action" href="#excluir-produto" aria-label="Excluir Mouse USB">Excluir</a>
+                    <a class="delete-action" href="#excluir-produto" aria-label="Excluir Mouse USB" data-id="${item.idProduto}">Excluir</a>
                 </div>
             </td>
         </tr>
@@ -96,6 +97,7 @@ async function buscarProduto() {
 buscarProduto();
 buscarProduto().catch(error => {
     console.error('Erro ao carregar os produtos:', error);
+    window.location.href = "http://localhost:3000/pages/ErrorServer"
 });
 
 // Guarda os dados que vieram do banco para comparar com o formulário ao salvar.
@@ -155,19 +157,38 @@ async function updateProducts(id) {
 }
 
 const tbody = document.getElementById('lista_items');
+let produtoParaExcluir = null;
 
 tbody.addEventListener('click', async event => {
-    const link = event.target.closest('.editar-produto');
+    const linkEditar = event.target.closest('.editar-produto');
 
-    if (!link) return;
+    if (linkEditar) {
+        event.preventDefault();
 
-    event.preventDefault();
+        try {
+            await updateProducts(linkEditar.dataset.id);
+            window.location.hash = '#editar-produto';
+        } catch (error) {
+            console.error('Erro ao carregar produto para edição:', error);
+            window.location.href = 'http://localhost:3000/pages/ErrorServer';
+        }
 
-    try {
-        await updateProducts(link.dataset.id);
-        window.location.hash = '#editar-produto';
-    } catch (error) {
-        console.error('Erro ao carregar produto para edição:', error);
+        return;
+    }
+
+    const linkExcluir = event.target.closest('.delete-action');
+
+    if (linkExcluir) {
+        // Guarda ID e nome para usar na confirmação do modal.
+        const linhaProduto = linkExcluir.closest('tr');
+        produtoParaExcluir = {
+            id: linkExcluir.dataset.id,
+            nome: linhaProduto.querySelector('.product-cell strong').textContent.trim()
+        };
+
+        // Atualiza o texto do modal com o nome desta linha.
+        document.getElementById('delete-product-name').textContent = produtoParaExcluir.nome;
+        // Não chamamos preventDefault: o href abre o modal de confirmação.
     }
 });
 
@@ -232,7 +253,40 @@ editarProduct.addEventListener('submit', async event => {
         window.location.href = 'http://localhost:3000/pages/success';
         await buscarProduto();
         await MainProducts();
-    } catch (error) {
+    } catch ( error ) {
         console.error('Erro ao salvar as alterações:', error);
+        window.location.href = "http://localhost:3000/pages/ErrorServer"
+    }
+});
+
+// DELETAR PRODUTOS
+const botaoConfirmar = document.querySelector(
+    '#excluir-produto .button-danger'
+);
+
+botaoConfirmar.addEventListener('click', async () => {
+    if (!produtoParaExcluir) return;
+    try {
+        const response = await fetch(
+            `http://localhost:3000/produtos/deletar/${produtoParaExcluir.id}`,
+            {
+                method: 'DELETE'
+            }
+        );
+        const resultado = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                resultado.message ||
+                resultado.mensagem ||
+                'Não foi possível excluir o produto.'
+            );
+        }
+
+        produtoParaExcluir = null;
+        window.location.href = 'http://localhost:3000/pages/success';
+    } catch (error) {
+        console.error('Erro na requisição DELETE:', error);
+        window.location.href = 'http://localhost:3000/pages/ErrorServer';
     }
 });

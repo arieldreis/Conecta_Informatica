@@ -104,4 +104,5 @@ async function painelDados(){
 painelDados();
 painelDados().catch(error => {
     console.error("Erro! Ao realizar a requisição HTTP: ", error);
+    window.location.href = "http://localhost:3000/pages/ErrorServer"
 });
